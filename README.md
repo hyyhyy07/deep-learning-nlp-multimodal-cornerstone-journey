@@ -284,15 +284,102 @@ jupyter notebook Week3/Day15/ML_Day15_RNN.ipynb
 
 ## 📚 推荐学习资源
 
+### 顶尖大学课程
+
 | 资源 | 适用阶段 | 备注 |
 |------|---------|------|
-| [CS231n: CNNs for Visual Recognition](http://cs231n.stanford.edu/) | Week 2-3 | Stanford 经典 CV 课程 |
+| [CS231n: CNNs for Visual Recognition](http://cs231n.stanford.edu/) | Week 2-3 | Stanford 经典 CV 课程，含卷积网络与视觉理解全部内容 |
 | [CS224n: NLP with Deep Learning](http://web.stanford.edu/class/cs224n/) | Week 3-4 | Stanford NLP 课程，与本路线高度互补 |
-| [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html) | Day 19 | Transformer 逐行实现 |
-| [HuggingFace NLP Course](https://huggingface.co/learn/nlp-course) | Day 20-22 | BERT/GPT 实战微调 |
-| [CLIP Paper (Radford et al., 2021)](https://arxiv.org/abs/2103.00020) | Day 26 | 多模态对比学习的开山之作 |
-| [LLM Visualization](https://bbycroft.net/llm) | Day 23-24 | GPT 内部机制 3D 可视化 |
-| [3Blue1Brown — Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) | Week 1-2 | 直觉最强的数学可视化 |
+| [CS229: Machine Learning](https://cs229.stanford.edu/) | Week 1-2 | Stanford ML 基础课，Andrew Ng 经典讲义 + 习题 |
+| [CS 182: Deep Learning (Berkeley)](https://cs182.github.io/) | Week 2-4 | Berkeley 深度学习课程，理论与实践并重 |
+| [MIT 6.S191: Intro to Deep Learning](https://introtodeeplearning.com/) | Week 1-3 | MIT 深度学习入门，覆盖 RNN/Transformer/生成模型 |
+| [MIT 6.S094: Deep Learning for Self-Driving Cars](https://selfdrivingcars.mit.edu/) | Week 4-5 | 将 DL 应用于自动驾驶的实战课程 |
+| [CMU 11-785: Intro to Deep Learning](https://deeplearning.cs.cmu.edu/) | Week 2-4 | CMU 深度学习课程，数学推导深入 |
+| [Stanford CS330: Multi-Task & Meta Learning](https://cs330.stanford.edu/) | Week 4-5 | 多任务学习与元学习，进阶话题 |
+| [Full Stack Deep Learning](https://fullstackdeeplearning.com/) | Week 5 | 涵盖 MLOps、部署、实验管理等工程实践 |
+
+### 视频与 YouTube 系列
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [3Blue1Brown — Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) | Week 1-2 | 直觉最强的数学可视化系列 |
+| [Andrej Karpathy — Neural Networks: Zero to Hero](https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ) | Week 2-4 | 从反向传播手写到 nanoGPT，本仓库的灵感来源之一 |
+| [StatQuest with Josh Starmer](https://www.youtube.com/@statquest) | Week 1-3 | 统计学和 ML 概念讲得最清晰的频道 |
+| [Machine Learning with Phil](https://www.youtube.com/@MachineLearningwithPhil) | Week 2-4 | 代码实现类教程，从线性回归到 GAN 全面覆盖 |
+| [Aladdin Persson](https://www.youtube.com/@AladdinPersson) | Week 3-5 | PyTorch 实现各类模型的高质量教程 |
+| [Yannic Kilcher](https://www.youtube.com/@YannicKilcher) | Week 3-5 | 论文精读频道，涵盖 NLP 和多模态 SOTA 论文 |
+| [The AI Epiphany](https://www.youtube.com/@theaiepiphany) | Week 3-5 | 深度视觉、多模态和生成模型的深度解读 |
+| [DeepLearning.AI — YouTube](https://www.youtube.com/@Deeplearningai) | Week 1-5 | Andrew Ng 团队的频道，覆盖从入门到前沿 |
+| [Arxiv Insights](https://www.youtube.com/@ArxivInsights) | Week 3-4 | 论文动画讲解，注意力机制和 Transformer 动画令人印象深刻 |
+| [Samuel Albanie](https://www.youtube.com/@SamuelAlbanie) | Week 3-5 | 计算机视觉和多模态研究的深度讲座 |
+
+### 必读论文与博客
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html) | Day 19 | Transformer 逐行实现（PyTorch） |
+| [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) | Day 19 | Transformer 原始论文，NLP 的分水岭 |
+| [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) | Day 22 | BERT 论文，双向预训练的里程碑 |
+| [Improving Language Understanding by Generative Pre-Training (GPT)](https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf) | Day 23 | GPT 原始论文 |
+| [An Image is Worth 16x16 Words: Transformers for Image Recognition (ViT)](https://arxiv.org/abs/2010.11929) | Day 25 | ViT 论文，CV 领域的 Transformer 革命 |
+| [CLIP: Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020) | Day 26 | 多模态对比学习的开山之作 |
+| [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) | Day 28 | DDPM 原始论文，扩散模型的基石 |
+| [High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion)](https://arxiv.org/abs/2112.10752) | Day 28 | Stable Diffusion 论文 |
+| [DistilBERT, a distilled version of BERT](https://arxiv.org/abs/1910.01108) | Day 20 | 知识蒸馏的经典案例 |
+| [Learning Transferable Visual Models From Natural Language Supervision (CLIP)](https://arxiv.org/abs/2103.00020) | Day 26 | 同上，多模态必读 |
+| [The Lottery Ticket Hypothesis](https://arxiv.org/abs/1803.03635) | Week 5 | 神经网络剪枝的重要理论 |
+| [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) | Day 13 | ResNet 论文，残差连接的起源 |
+
+### 在线课程与交互式教程
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [HuggingFace NLP Course](https://huggingface.co/learn/nlp-course) | Day 20-22 | BERT/GPT 实战微调，使用 Transformers 库 |
+| [HuggingFace Audio Course](https://huggingface.co/learn/audio-course) | Week 4-5 | 音频与语音领域的深度学习 |
+| [HuggingFace Deep RL Course](https://huggingface.co/learn/deep-rl-course) | Week 5 | 深度强化学习入门 |
+| [fast.ai Practical Deep Learning](https://course.fast.ai/) | Week 1-3 | 自顶向下的实践派深度学习课程，代码优先 |
+| [fast.ai From Deep Learning Foundations to Stable Diffusion](https://course.fast.ai/Lessons/lesson.html) | Week 4-5 | fast.ai 最新版，涵盖扩散模型 |
+| [D2L: Dive into Deep Learning](https://d2l.ai/) | Week 1-5 | Amazon 出品，交互式教材 + 代码（MXNet/PyTorch/TensorFlow） |
+| [Neural Networks from Scratch](https://nnfs.io/) | Week 1-3 | 从零构建神经网络，不依赖框架 |
+| [Google — Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course) | Week 1-2 | Google 官方 ML 速成课程 |
+
+### 交互式可视化与工具
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [LLM Visualization](https://bbycroft.net/llm) | Day 23-24 | GPT 内部机制 3D 可视化，交互式，视觉震撼 |
+| [TensorFlow Playground](https://playground.tensorflow.org/) | Day 8-9 | 在线神经网络沙盒，直观理解激活函数、层数的影响 |
+| [Distill.pub](https://distill.pub/) | Week 2-5 | 高水准的交互式 ML 科普期刊，每篇都是艺术品 |
+| [CNN Explainer](https://poloclub.github.io/cnn-explainer/) | Day 11-12 | 交互式 CNN 可视化，中文友好 |
+| [Transformer Explainer](https://poloclub.github.io/transformer-explainer/) | Day 19 | Transformer 内部交互可视化 |
+| [Embedding Projector](https://projector.tensorflow.org/) | Day 22-23 | 高维嵌入向量的 3D 可视化 |
+
+### 经典书籍（免费在线版）
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [Deep Learning (Goodfellow, Bengio, Courville)](https://www.deeplearningbook.org/) | Week 2-4 | "花书"，深度学习圣经，数学推导完备 |
+| [Speech and Language Processing (Jurafsky & Martin)](https://web.stanford.edu/~jurafsky/slp3/) | Week 3-4 | NLP 领域最权威的教科书，持续更新中 |
+| [Understanding Deep Learning (S. Prince)](https://udlbook.github.io/udlbook/) | Week 2-5 | 2023 年新书，图解精美，涵盖 Transformer 和多模态 |
+| [The Elements of Statistical Learning (Hastie et al.)](https://hastie.su.domains/ElemStatLearn/) | Week 1-2 | 统计学习经典，偏理论但极其深刻 |
+| [Reinforcement Learning: An Introduction (Sutton & Barto)](http://incompleteideas.net/book/the-book-2nd.html) | Week 5 | RL 领域的标准教材 |
+| [Mathematics for Machine Learning (Deisenroth et al.)](https://mml-book.github.io/) | Week 1-2 | ML 需要的线性代数、概率论和微积分 |
+| [Natural Language Processing with Transformers (Tunstall et al.)](https://transformersbook.com/) | Day 20-24 | HuggingFace 官方出品的 Transformer 实战书 |
+| [Probabilistic Machine Learning (Murphy)](https://probml.github.io/pml-book/) | Week 1-4 | 2022 年巨著，覆盖所有现代 ML 方法 |
+
+### 综合平台与社区
+
+| 资源 | 适用阶段 | 备注 |
+|------|---------|------|
+| [Papers With Code](https://paperswithcode.com/) | Week 2-5 | 论文 + 代码 + Benchmark 一站式追踪 SOTA |
+| [The Gradient](https://thegradient.pub/) | Week 3-5 | 高质量深度学习博客杂志 |
+| [Sebastian Ruder's Blog](https://ruder.io/) | Week 3-5 | NLP 和多任务学习的前沿分析 |
+| [Lilian Weng's Blog (OpenAI)](https://lilianweng.github.io/) | Week 3-5 | 系统性的技术博客，涵盖 LLM、多模态、扩散模型 |
+| [Jay Alammar's Blog](https://jalammar.github.io/) | Week 3-4 | 最好的技术图解博客之一，BERT/Transformer 图解不可错过 |
+| [Chris Olah's Blog](https://colah.github.io/) | Week 2-5 | Distill 创始人，RNN 和注意力机制的可视化先驱 |
+| [GitHub Daily — Deep Learning](https://github.com/topics/deep-learning) | Week 1-5 | GitHub 每日热门 DL 项目 |
+| [r/MachineLearning](https://www.reddit.com/r/MachineLearning/) | Week 1-5 | Reddit ML 社区，论文讨论和职业建议 |
+| [Hacker News — AI Section](https://news.ycombinator.com/) | Week 1-5 | 科技圈的 AI 热点讨论 |
 
 ---
 
