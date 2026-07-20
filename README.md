@@ -263,7 +263,7 @@ DayXX/
 
 ```bash
 # 克隆仓库
-git clone https://github.com/hyyhyy07/python-deep-learning-study-schedule.git
+git clone https://github.com/hyyhyy07/deep-learning-nlp-multimodal-cornerstone-journey.git
 cd python-deep-learning-study-schedule
 
 # 安装核心依赖
