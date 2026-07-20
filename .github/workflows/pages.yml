@@ -1,0 +1,140 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install nbconvert jupyter
+
+      - name: Convert notebooks to HTML
+        run: |
+          echo "::group::Converting notebooks to HTML"
+          mkdir -p _site
+          find . -name "*.ipynb" -not -path './.git/*' -not -path './_site/*' | sort | while IFS= read -r nb; do
+            rel="${nb#./}"
+            outdir="_site/$(dirname "$rel")"
+            mkdir -p "$outdir"
+            jupyter nbconvert --to html --template classic "$nb" --output-dir="$outdir" --no-input 2>/dev/null
+            echo "  ✓ $rel"
+          done
+          echo "::endgroup::"
+
+      - name: Build index page
+        run: |
+          cat > _site/index.html << 'INDEXEOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>深度学习 · NLP 与多模态学习路线</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                max-width: 960px; margin: 0 auto; padding: 2rem 1rem;
+                background: #f8f9fa; color: #1a1a2e; line-height: 1.6;
+              }
+              h1 { font-size: 2rem; border-bottom: 3px solid #4361ee; padding-bottom: .5rem; }
+              h2 { font-size: 1.3rem; margin-top: 2rem; color: #4361ee; }
+              h2 span { background: #4361ee; color: #fff; font-size: .8rem; padding: 2px 8px; border-radius: 10px; margin-right: 8px; }
+              ul { padding-left: 1.2rem; }
+              li { margin: .4rem 0; }
+              a { color: #4361ee; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .meta { color: #666; font-size: .9rem; margin: 1rem 0 2rem; }
+              .tag { display: inline-block; background: #e9ecef; padding: 1px 8px; border-radius: 8px; font-size: .8rem; margin-left: 6px; color: #555; }
+              .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: .85rem; color: #888; }
+              .badge { background: #d4edda; color: #155724; padding: 2px 8px; border-radius: 8px; font-size: .75rem; margin-left: 6px; }
+              .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+              .day-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: .6rem 1rem; transition: box-shadow .15s; }
+              .day-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+              .day-card .title { font-weight: 600; }
+              .day-card .files { font-size: .8rem; color: #666; margin-top: 4px; }
+            </style>
+          </head>
+          <body>
+            <h1>🧠 深度学习 · NLP 与多模态学习路线</h1>
+            <p class="meta">从线性回归到 Stable Diffusion · 35 天完整学习记录 · 聚焦 NLP 与多模态</p>
+INDEXEOF
+
+          # Generate week sections
+          for week in Week1 Week2 Week3 Week4 Week5; do
+            if [ -d "$week" ]; then
+              week_name=""
+              case $week in
+                Week1) week_name="经典机器学习" ;;
+                Week2) week_name="神经网络与 CNN" ;;
+                Week3) week_name="序列模型 & Transformer" ;;
+                Week4) week_name="预训练 & 多模态" ;;
+                Week5) week_name="实战 & 部署" ;;
+              esac
+              echo "<h2><span>${week}</span>${week_name}</h2>" >> _site/index.html
+              echo '<div class="day-grid">' >> _site/index.html
+
+              for day in $(ls -d "$week"/Day* 2>/dev/null | sort); do
+                day_name=$(basename "$day")
+                notebooks=$(find "$day" -name "*.ipynb" | sort)
+                if [ -n "$notebooks" ]; then
+                  echo "<div class=\"day-card\"><div class=\"title\">${day_name}</div><div class=\"files\">" >> _site/index.html
+                  echo "$notebooks" | while IFS= read -r nb; do
+                    nb_rel="${nb#./}"
+                    html_name="$(basename "$nb" .ipynb).html"
+                    html_path="$(dirname "$nb_rel")/${html_name}"
+                    label="$(basename "$nb" .ipynb)"
+                    echo "<a href=\"${html_path}\">${label}</a><br>" >> _site/index.html
+                  done
+                  echo "</div></div>" >> _site/index.html
+                fi
+              done
+
+              echo "</div>" >> _site/index.html
+            fi
+          done
+
+          cat >> _site/index.html << 'INDEXEOF'
+            <div class="footer">
+              <p><a href="https://github.com/hyyhyy07/deep-learning-nlp-multimodal-cornerstone-journey">GitHub 仓库</a> · 由 GitHub Actions 自动构建</p>
+            </div>
+          </body>
+          </html>
+INDEXEOF
+          echo "  ✓ index page built"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
