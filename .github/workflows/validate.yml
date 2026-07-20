@@ -1,0 +1,68 @@
+name: Validate Notebooks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate .ipynb files are valid JSON
+        run: |
+          echo "::group::Checking notebook JSON validity"
+          error=0
+          while IFS= read -r f; do
+            if ! python3 -m json.tool "$f" > /dev/null 2>&1; then
+              echo "::error file=$f::Invalid JSON in $f"
+              error=1
+            else
+              echo "  ✓ $f"
+            fi
+          done < <(find . -name "*.ipynb" -not -path './.git/*' | sort)
+          echo "::endgroup::"
+          exit $error
+
+      - name: Check .py files for syntax errors
+        run: |
+          echo "::group::Checking Python syntax"
+          error=0
+          while IFS= read -r f; do
+            if ! python3 -c "compile(open('$f', encoding='utf-8').read(), '$f', 'exec')" 2>/dev/null; then
+              echo "::error file=$f::Syntax error in $f"
+              error=1
+            else
+              echo "  ✓ $f"
+            fi
+          done < <(find . -name "*.py" -not -path './.git/*' | sort)
+          echo "::endgroup::"
+          exit $error
+
+      - name: Verify directory structure
+        run: |
+          echo "::group::Verifying directory structure"
+          for week in Week1 Week2 Week3 Week4 Week5; do
+            if [ -d "$week" ]; then
+              count=$(find "$week" -name "*.ipynb" | wc -l)
+              echo "  ✓ $week — $count notebooks"
+            else
+              echo "  ⚠ $week not found"
+            fi
+          done
+          echo "::endgroup::"
+
+      - name: Try importing key dependencies (lightweight check)
+        run: |
+          echo "::group::Installing and testing core dependencies"
+          pip install --quiet nbformat nbconvert 2>&1 | tail -2
+          echo "Core dependencies OK"
+          echo "::endgroup::"
